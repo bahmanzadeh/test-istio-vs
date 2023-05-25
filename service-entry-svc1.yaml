@@ -1,0 +1,10 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: helloworld-svc1-se
+  namespace: ns2
+spec:
+  hosts:
+  - helloworld-svc1
+  location: MESH_INTERNAL
+  resolution: DNS

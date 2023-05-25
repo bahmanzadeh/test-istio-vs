@@ -6,6 +6,7 @@ metadata:
 spec:
   hosts:
     - svc2.helloworld.com
+    - helloworld-svc2
   gateways:
   - istio-system/my-gateway  
   http:
@@ -25,7 +26,7 @@ metadata:
   name: helloworld-svc2
   namespace: ns2
 spec:
-  host: helloworld-svc2
+  host: helloworld-svc2 # host is the target kubernetes service 
   subsets:
   - name: v1
     labels:
