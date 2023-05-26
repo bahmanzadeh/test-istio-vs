@@ -6,9 +6,10 @@ metadata:
 spec:
   hosts:
     - svc2.helloworld.com
-    - helloworld-svc2
+    - helloworld-svc2   # if you use shortnames here it will append ns1.svc.cluster.local (the namespace that the VS is deployed in)
   gateways:
   - istio-system/my-gateway  
+  - mesh
   http:
   - route:
     - destination:
@@ -26,7 +27,7 @@ metadata:
   name: helloworld-svc2
   namespace: ns2
 spec:
-  host: helloworld-svc2 # host is the target kubernetes service 
+  host: helloworld-svc2 # host is the target kubernetes service; this could be a host/service defined by Service Entry
   subsets:
   - name: v1
     labels:

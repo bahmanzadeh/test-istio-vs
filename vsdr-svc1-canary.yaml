@@ -6,20 +6,20 @@ metadata:
 spec:
   hosts:
     - svc1.helloworld.com
-    - helloworld-svc1  # if you use shortnames here it will append ns1.svc.cluster.local or ns2.svc.cluster.local (depends where it's deployed)
+    - helloworld-svc1  # if you use shortnames here it will append ns1.svc.cluster.local (the namespace that the VS is deployed in)
   gateways:
   - istio-system/my-gateway 
   - mesh 
   http:
   - route:
     - destination:
-        host: helloworld-svc1 # if you use shortnames here it will append ns1.svc.cluster.local or ns2.svc.cluster.local (depends where it's deployed)
+        host: helloworld-svc1 # if you use shortnames here it will append ns1.svc.cluster.local (the namespace that the VS is deployed in)
         subset: v1
-      weight: 100
+      weight: 50
     - destination:
-        host: helloworld-svc1 # if you use shortnames here it will append ns1.svc.cluster.local or ns2.svc.cluster.local (depends where it's deployed)
+        host: helloworld-svc1 # if you use shortnames here it will append ns1.svc.cluster.local (the namespace that the VS is deployed in)
         subset: v2
-      weight: 0
+      weight: 50
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
@@ -27,7 +27,7 @@ metadata:
   name: helloworld-svc1
   namespace: ns1
 spec:
-  host: helloworld-svc1 # host is the target kubernetes service 
+  host: helloworld-svc1 # host is the target kubernetes service; this could be a host/service defined by Service Entry
   subsets:
   - name: v1
     labels:
