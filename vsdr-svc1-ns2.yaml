@@ -5,7 +5,7 @@ metadata:
   namespace: ns2
 spec:
   hosts:
-    - svc1.helloworld.com
+    - ns2.svc1.helloworld.com
     - helloworld-svc1.ns1.svc.cluster.local   # if you use shortnames here it will append the namespace on top(metadata) as a suffix to it (like ns2.svc.cluster.local) (the namespace that the VS is deployed in)
   gateways:
   - istio-system/my-gateway  
@@ -23,7 +23,7 @@ spec:
         uri: /     
       route:
         - destination:
-            host: helloworld-svc1
+            host: helloworld-svc1.ns1.svc.cluster.local
             subset: v2   
 
     - name: v1-route        
@@ -34,8 +34,18 @@ spec:
         uri: /     
       route:
         - destination:
-            host: helloworld-svc1
+            host: helloworld-svc1.ns1.svc.cluster.local
             subset: v1
+
+    - name: header-route
+      match:
+      - headers:
+         end-user:
+           exact: jason 
+      route:
+        - destination:
+           host: helloworld-svc1.ns1.svc.cluster.local
+           subset: v2
 
     - name: source-namespace-route
       match:      
@@ -51,23 +61,13 @@ spec:
           mylabel: mypod1
       route:
        - destination:
-          host: helloworld-svc1
+          host: helloworld-svc1.ns1.svc.cluster.local
           subset: v1
 
-    - name: header-route
-      match:
-      - headers:
-         end-user:
-           exact: jason 
-      route:
-        - destination:
-           host: helloworld-svc1
-           subset: v2
-   
     - name: default-route        
       route:
       - destination:
-          host: helloworld-svc1
+          host: helloworld-svc1.ns1.svc.cluster.local
           subset: v2
 ---
 apiVersion: networking.istio.io/v1alpha3
