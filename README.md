@@ -19,6 +19,7 @@ for ((i=1;i<=10;i++)); do curl helloworld-svc1.ns1; done | grep SVC1
 
 change the host header or agent in the curl command:
 curl -A "Firefox" -H "Host: helloweb.dev" 192.1.1.1
+curl -H "end-user: jason" www.example.com
 
 restart a deployment for a namespace:
 kubectl rollout restart deploy -n ns1
