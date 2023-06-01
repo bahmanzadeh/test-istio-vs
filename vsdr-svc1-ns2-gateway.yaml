@@ -6,12 +6,9 @@ metadata:
 spec:
   hosts:
     - ns2site.svc1.helloworld.com
-   # - helloworld-svc1.ns1.svc.cluster.local   # if you use shortnames here it will append the namespace on top(metadata) as a suffix to it (like ns2.svc.cluster.local) (the namespace that the VS is deployed in)
   gateways:
   - istio-system/my-gateway  
-  #- mesh
-  #exportTo: 
-  #- "*"
+
 # http routing rules are listed by names here and the order is important, any of them is matched first, it will go through and then the rest will be ignored
   http:
  
@@ -78,8 +75,6 @@ metadata:
   namespace: ns2
 spec:
   host: helloworld-svc1.ns1.svc.cluster.local # host is the target kubernetes service; this could be a host/service defined by Service Entry too
- # exportTo: 
- # - "*"
   subsets:
   - name: v1
     labels:
