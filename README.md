@@ -6,7 +6,8 @@ In this test we are using a canary deployment as well as other routing rules in 
 - svc2v1 and svc2v2 are deployed in NS2
 
 Install netutils pod for troubleshooting:
-kubectl run netutils --image=rezabah/netutils:1.0 -n ns2 -l mylabel=mypod1 -i --tty -- /bin/bash
+kubectl run tenantns2-svc --image=rezabah/netutils:1.0 -n ns2 -l mylabel=mypod2 -i --tty -- /bin/bash
+kubectl run tenantns3-svc --image=rezabah/netutils:1.0 -n ns3 -l mylabel=mypod3 -i --tty -- /bin/bash
 
 attach to the container if it has tty :
 kubectl attach -it netutils -c netutils -n ns2
