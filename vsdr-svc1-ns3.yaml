@@ -39,7 +39,7 @@ spec:
       route:
        - destination:
           host: helloworld-svc1.ns1.svc.cluster.local
-          subset: v1
+          subset: v2
 
     - name: source-podlabel-route
       match:      

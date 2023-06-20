@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: service-fqdn-env
+  # It maps shortnames to FQDNs
+  # should be deployed in all namespaces
+data:
+  helloworld-svc1: helloworld-svc1.ns1.svc.cluster.local
+  helloworld-svc2: helloworld-svc2.ns1.svc.cluster.local

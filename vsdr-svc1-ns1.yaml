@@ -5,9 +5,11 @@ metadata:
   namespace: ns1
 spec:
   hosts:
-    - helloworld-svc1.ns1.svc.cluster.local   # if you use shortnames here it will append the namespace on top(metadata) as a suffix to it (like ns2.svc.cluster.local) (the namespace that the VS is deployed in)
+  - helloworld-svc1.ns1.svc.cluster.local   # if you use shortnames here it will append the namespace on top(metadata) as a suffix to it (like ns2.svc.cluster.local) (the namespace that the VS is deployed in)
   exportTo: 
   - "."
+# since there is not gateway listed it will applied only to mesh (side cars). Merging hosts is not supported on the side cars. so you should not have another
+# virtula service for the same host (service) 
 # http routing rules are listed by names here and the order is important, any of them is matched first, it will go through and then the rest will be ignored
   http:
 
@@ -35,7 +37,7 @@ spec:
 
     - name: source-namespace-route
       match:      
-      - sourceNamespace: ns2
+      - sourceNamespace: ns1
       route:
        - destination:
           host: helloworld-svc1.ns1.svc.cluster.local
