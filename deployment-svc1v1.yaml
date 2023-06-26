@@ -21,9 +21,9 @@ spec:
       containers:
       - name: helloworld-svc1v1
         image: rezabah/svc1v1:v1
-        envFrom:
-          - configMapRef:
-             name: short-to-long
         ports:
         - containerPort: 80
           name: http-web
+        # envFrom:
+        #   - configMapRef:
+        #      name: short-to-long  
