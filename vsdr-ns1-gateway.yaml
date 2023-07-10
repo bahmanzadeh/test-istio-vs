@@ -6,8 +6,6 @@ metadata:
 spec:
   hosts:
     - ns1.helloworld.com
-    #- ns2.helloworld.com
-    #- '*.helloworld.com'
   gateways:
     - istio-system/my-gateway  
  # http routing rules are listed by names here and the order is important, any of them is matched first, it will go through and then the rest will be ignored
