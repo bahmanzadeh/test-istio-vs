@@ -62,7 +62,7 @@ spec:
           host: helloworld-svc1.ns1.svc.cluster.local
           subset: v1
 
-    - name: header-route
+    - name: header-route-jason
       match:
       - headers:
          end-user:
@@ -72,11 +72,31 @@ spec:
            host: helloworld-svc1.ns1.svc.cluster.local
            subset: v2
    
-    - name: default-route        
+    - name: header-route-g2
+      match:
+      - headers:
+         end-db:
+           exact: g2 
       route:
-      - destination:
-          host: helloworld-svc1.ns1.svc.cluster.local
-          subset: v1
+        - destination:
+           host: helloworld-svc1.ns1.svc.cluster.local
+           subset: v5
+
+   
+    - name: default-route        
+      # route:
+      # - destination:
+      #     host: helloworld-svc1.ns1.svc.cluster.local
+      #     subset: stable
+      route:
+        - destination:
+            host: helloworld-svc1 # if you use shortnames here it will append ns1.svc.cluster.local (the namespace that the VS is deployed in)
+            subset: v1
+          weight: 50
+        - destination:
+            host: helloworld-svc1 # if you use shortnames here it will append ns1.svc.cluster.local (the namespace that the VS is deployed in)
+            subset: v2
+          weight: 50
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule

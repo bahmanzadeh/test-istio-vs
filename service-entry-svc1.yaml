@@ -12,8 +12,11 @@ spec:
     name: http
     protocol: HTTP
   resolution: NONE
-  workloadSelector:
-     labels:
-       version: v2
+  endpoints:
+   http://a.b.c
+     labels
+  # workloadSelector:
+  #    labels:
+  #      version: v2
 # this one works but since service entry should be applied on the target namespace, then it will change to v2 for everyone meaning all comming traffics
 
