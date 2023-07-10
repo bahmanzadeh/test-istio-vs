@@ -24,3 +24,6 @@ spec:
         ports:
         - containerPort: 80
           name: http-web
+        # envFrom:
+        #   - configMapRef:
+        #      name: short-to-long  

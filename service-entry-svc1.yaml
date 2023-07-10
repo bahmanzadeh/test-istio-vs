@@ -1,9 +1,11 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
-  name: helloworld-svc1-se
-  namespace: ns1 # if it's deployed in the target namespace i.e. the namespace as the same workload then it works, but not in the source 
+  name: helloworld-svc1
+  namespace: ns2 
 spec:
+  exportTo:
+   - "."
   hosts:
   - helloworld-svc1
   location: MESH_INTERNAL
@@ -11,12 +13,9 @@ spec:
   - number: 80
     name: http
     protocol: HTTP
-  resolution: NONE
+  resolution: DNS
   endpoints:
-   http://a.b.c
-     labels
-  # workloadSelector:
-  #    labels:
-  #      version: v2
-# this one works but since service entry should be applied on the target namespace, then it will change to v2 for everyone meaning all comming traffics
+  - address: helloworld-svc1.ns1.svc.cluster.local 
+
+  
 

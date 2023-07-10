@@ -1,0 +1,2 @@
+svc1=svc1.ns1.svc.cluster.local
+svc2=svc2.ns1.svc.cluster.local
