@@ -1,5 +1,7 @@
 We need to inject data during runtime to the application pod
-This can be done using ConfigMap. The key=value pair are populated in a text file.
+This can be done using ConfigMap. The key=value pair are populated in configmap
+
+if you need to use text files to populate the data:
 For example for maping shortname to FQDN for services in the namespaces ns1 and ns2, two files are created:
 ns1.services
 ns2.services

@@ -1,8 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: service-fqdn-env
-  # This is just a sample
+  name: services-fqdn
   # It maps shortnames to FQDNs
   # should be deployed in all namespaces
 data:

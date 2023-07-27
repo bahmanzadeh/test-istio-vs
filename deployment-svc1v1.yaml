@@ -26,4 +26,4 @@ spec:
           name: http-web
         # envFrom:
         #   - configMapRef:
-        #      name: short-to-long  
+        #      name: services-fqdn  
