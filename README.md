@@ -17,10 +17,10 @@ ssh to a pod:
 kubectl exec -it netutils -n ns2 -- /bin/bash
 
 Curl in loop:
-for ((i=1;i<=10;i++)); do curl helloworld-svc1.ns1; done | grep SVC1
+for ((i=1;i<=10;i++)); do curl -s helloworld-svc1.ns1; done | grep SVC1
 from outside:
-for ((i=1;i<=10;i++)); do curl http://ns1.helloworld.com/svc1; done | grep SVC1
-for ((i=1;i<=10;i++)); do curl http://ns2.helloworld.com/svc1; done | grep SVC1
+for ((i=1;i<=10;i++)); do curl -s http://ns1.helloworld.com/svc1; done | grep SVC1
+for ((i=1;i<=10;i++)); do curl -s http://ns2.helloworld.com/svc1; done | grep SVC1
 
 change the host header or agent in the curl command:
 curl -A "Firefox" -H "Host: helloweb.dev" 192.1.1.1

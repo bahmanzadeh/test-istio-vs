@@ -1,0 +1,69 @@
+# For inside the mesh make sure to use exportTo "." so that can be visible only to this namespace
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: helloworld-svc1-ns2
+  namespace: ns2
+spec:
+  hosts:
+  - helloworld-svc1.ns1.svc.cluster.local   # if you use shortnames here it will append the namespace on top(metadata) as a suffix to it (like ns2.svc.cluster.local) (the namespace that the VS is deployed in)
+  exportTo: 
+  - "."
+# http routing rules are listed by names here and the order is important, any of them is matched first, it will go through and then the rest will be ignored
+  http:
+ 
+    - name: v2-route 
+      match:      
+      - uri:
+          prefix: /v2
+      rewrite:
+        uri: /     
+      route:
+        - destination:
+            host: helloworld-svc1.ns1.svc.cluster.local
+            subset: v2   
+
+    - name: v1-route        
+      match:      
+      - uri:
+          prefix: /v1
+      rewrite:
+        uri: /     
+      route:
+        - destination:
+            host: helloworld-svc1.ns1.svc.cluster.local
+            subset: v1
+
+    - name: header-route
+      match:
+      - headers:
+         end-user:
+           exact: jason 
+      route:
+        - destination:
+           host: helloworld-svc1.ns1.svc.cluster.local
+           subset: v2
+
+    - name: source-namespace-route
+      match:      
+      - sourceNamespace: ns2 
+      route:
+       - destination:
+          host: helloworld-svc1.ns1.svc.cluster.local
+          subset: v1
+
+    - name: source-podlabel-route
+      match:      
+      - sourceLabels:
+          mylabel: mypod1
+      route:
+       - destination:
+          host: helloworld-svc1.ns1.svc.cluster.local
+          subset: v1
+
+    - name: default-route        
+      route:
+       - destination:
+          host: helloworld-svc1.ns1.svc.cluster.local
+          subset: v1
+    

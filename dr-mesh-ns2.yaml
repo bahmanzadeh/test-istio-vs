@@ -1,0 +1,18 @@
+# inside the mesh we have to make sure to include the exportTo: "." so that can be visible only for this specific namespace. 
+# The destination rules for inside mesh should be created in the source namespace always
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: helloworld-svc1-ns2
+  namespace: ns2
+spec:
+  host: helloworld-svc1.ns1.svc.cluster.local # host is the target kubernetes service; this could be a host/service defined by Service Entry too
+  exportTo: 
+  - "."
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2
