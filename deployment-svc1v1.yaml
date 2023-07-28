@@ -24,6 +24,7 @@ spec:
         ports:
         - containerPort: 80
           name: http-web
-        # envFrom:
-        #   - configMapRef:
-        #      name: services-fqdn  
+        envFrom:
+        - configMapRef:
+           name: services-fqdn
+           
